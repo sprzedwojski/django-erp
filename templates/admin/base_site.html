@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+{% load i18n %}{% load admin_static bootstrapped_goodies_tags %}
+
+{% block title %}d_ERP{% endblock %}
+
+{% block branding %}
+    <a class="navbar-brand" href="{% url 'admin:index' %}">d_ERP</a>
+
+    <div class="navbar-brand">
+    <a class="navbar-link" href="{% url 'sales:index' %}" style="margin-right: 5px">
+        <img class="icon" alt="sales" src="{% static 'sales/img/sales_small.png' %}"/>&nbsp;Sales
+    </a>
+    </div>
+
+    <div class="navbar-brand">
+    <a class="navbar-link" href="{% url 'finance:index' %}" style="margin-right: 5px">
+        <img class="icon" alt="finance" src="{% static 'finance/img/finance_small.png' %}"/>&nbsp;Finance
+    </a>
+    </div>
+
+    <div class="navbar-brand">
+    <a class="navbar-link" href="{% url 'hr:index' %}" style="margin-right: 5px">
+        <img class="icon" alt="sales" src="{% static 'hr/img/hr_small.png' %}"/>&nbsp;HR
+    </a>
+    </div>
+    <div class="clearfix"></div>
+
+{% endblock %}
+
+{% block nav-global %}
+{% endblock %}

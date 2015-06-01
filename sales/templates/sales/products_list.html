@@ -1,0 +1,50 @@
+{% extends "sales/base.html" %}
+
+{% block title %}Sales:Products{% endblock %}
+
+{% block navbar %}
+    {% include "sales/_navbar.html" with active="products" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'sales:index' %}">Home</a></li>
+      <li class="active">Products</li>
+    </ol>
+
+    {% if latest_products_list %}
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="products" class="table table-striped table-bordered dataTable" style="width: 100%;">
+                    <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Client</td>
+                        <td>Price</td>
+                        <td>Date delivered</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in latest_products_list %}
+                        <tr><td><a href="{% url 'sales:product_detail' product.id %}">{{ product.product_name }}</a></td>
+                        <td>{{ product.client.client_name }}</td>
+                        <td>{{ product.price }} $</td>
+                        <td>{{ product.delivery_date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <p>No products are available.</p>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script>
+    $(document).ready(function() {
+        $('#products').dataTable();
+    });
+    </script>
+{% endblock %}

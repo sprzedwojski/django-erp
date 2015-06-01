@@ -1,0 +1,49 @@
+{% extends "hr/base.html" %}
+
+{% block title %}d_ERP::HR:Employees{% endblock %}
+
+{% block navbar %}
+    {% include "hr/_navbar.html" with active="employees" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'hr:index' %}">Home</a></li>
+      <li class="active">Employees</li>
+    </ol>
+
+    {% if employee_list %}
+        <div class="row">
+        <div class="col-sm-12">
+        <table id="applicants" class="table table-striped table-bordered dataTable" style="width: 100%;">
+            <thead>
+                <tr>
+                    <td>Employee name:</td>
+                    <td>Position:</td>
+                    <td>Salary:</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employee_list %}
+                    <tr>
+                        <td><a href="{% url 'hr:employee' employee.id %}"> {{ employee.get_string }}</a></td>
+                        <td>{{ employee.emp_position }}</td>
+                        <td>{{ employee.emp_salary }}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        </div>
+    {% else %}
+        <p>No applicants are available.</p>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script>
+    $(document).ready(function() {
+        $('#applicants').dataTable();
+    } );
+    </script>
+{% endblock %}

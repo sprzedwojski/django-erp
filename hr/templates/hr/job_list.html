@@ -1,0 +1,49 @@
+{% extends "hr/base.html" %}
+
+{% block title %}d_ERP::HR:Job offers{% endblock %}
+
+{% block navbar %}
+    {% include "hr/_navbar.html" with active="jobs" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'hr:index' %}">Home</a></li>
+      <li class="active">Jobs</li>
+    </ol>
+
+    {% if job_list %}
+        <div class="row">
+        <div class="col-sm-12">
+        <table id="jobs" class="table table-striped table-bordered dataTable" style="width: 100%;">
+            <thead>
+                <tr>
+                    <td>Job name:</td>
+                    <td>From:</td>
+                    <td>To:</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in job_list %}
+                    <tr>
+                        <td><a href="{% url 'hr:job' job.id %}"> {{ job.job_name }}</a></td>
+                        <td>{{ job.job_open_from }}</td>
+                        <td>{{ job.job_open_to }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        </div>
+    {% else %}
+        <p>No job offers are available.</p>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script>
+    $(document).ready(function() {
+        $('#jobs').dataTable();
+    } );
+    </script>
+{% endblock %}

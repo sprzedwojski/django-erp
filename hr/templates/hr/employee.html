@@ -1,0 +1,24 @@
+{% extends 'hr/base.html' %}
+
+{% block navbar %}
+    {% include "hr/_navbar.html" with active="employees" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'hr:index' %}">Home</a></li>
+      <li><a href="{% url 'hr:applicants' %}">Employee</a></li>
+      <li class="active">{{ employee.emp_applicant.get_string }}</li>
+    </ol>
+
+    <div class="well">
+    <h2>Info</h2>
+    <ul>
+        {% include "hr/applicant_data.html" with applicant=employee.emp_applicant is_employee=True %}
+        <li>Position: {{ employee.emp_position }}</li>
+        <li>Salary: {{ employee.emp_salary}}</li>
+    </ul>
+
+    <a class="btn btn-primary" href="{% url "admin:hr_employee_change" employee.id %}">Edit</a>
+    </div>
+{% endblock %}

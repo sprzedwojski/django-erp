@@ -1,0 +1,61 @@
+{% extends 'hr/base.html' %}
+
+{% block navbar %}
+    {% include "hr/_navbar.html" with active="jobs" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'hr:index' %}">Home</a></li>
+      <li><a href="{% url 'hr:applicants' %}">Jobs</a></li>
+      <li class="active">{{ job.job_name }}</li>
+    </ol>
+
+    <div class="well">
+    <h2>Info:</h2>
+    <ul>
+        <li>Name: {{ job.job_name}}</li>
+        <li>Description: {{ job.job_desc }}</li>
+        <li>From: {{ job.job_open_from }}</li>
+        <li>To: {{ job.job_open_to }}</li>
+    </ul>
+
+    <h3>Applicants:</h3>
+    {% if applicants %}
+    <div class="row">
+    <div class="col-sm-12">
+    <table id="applicants" class="table table-striped table-bordered dataTable" style="width: 100%;">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Name and Surname:</td>
+                <td>E-mail:</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in applicants %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'hr:applicant' applicant.id %}"> {{ applicant.get_string}}</a></td>
+                    <td><a href="mailto:{{ applicant.appl_email }}"> {{ applicant.appl_email }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+    {% else %}
+        <p>No applicants available.</p>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{% url "admin:hr_joboffer_change" job.id %}">Edit</a>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+    $(document).ready(function() {
+        $('#applicants').dataTable();
+    } );
+    </script>
+{% endblock %}

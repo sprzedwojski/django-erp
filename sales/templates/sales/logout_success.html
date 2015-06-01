@@ -1,0 +1,19 @@
+{% extends 'sales/base.html' %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+
+    <div class="alert alert-success" role="alert"><b>You have been successfully logged out</b></div>
+
+    <div class="jumbotron">
+{#      <h1>You have been logged out</h1>#}
+
+      <p>
+          Thank you for using DjangoERP.<br>
+          We are looking forward to you coming back!
+      </p>
+      <p><a class="btn btn-primary btn-lg" href="{% url 'sales:index' %}" role="button">Take me back</a></p>
+    </div>
+
+{% endblock %}

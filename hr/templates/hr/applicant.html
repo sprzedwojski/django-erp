@@ -1,0 +1,30 @@
+{% extends 'hr/base.html' %}
+
+{% block navbar %}
+    {% include "hr/_navbar.html" with active="applicants" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'hr:index' %}">Home</a></li>
+      <li><a href="{% url 'hr:applicants' %}">Applicants</a></li>
+      <li class="active">{{ applicant.get_string }}</li>
+    </ol>
+
+    <div class="well">
+    <h2>{{ applicant.get_string }}</h2>
+    <ul>
+        {% include "hr/applicant_data.html" %}
+{#        <li>E-mail: <a href="mailto:{{ applicant.appl_email }}">{{ applicant.appl_email }}</a></li>#}
+{#        <li>Phone: {{ applicant.appl_phone }}</li>#}
+{#        <li>Birthday: {{ applicant.appl_birthdate }}</li>#}
+{#        <li>Address: {{ applicant.appl_address }}</li>#}
+{#        <li>Applied for: <a href="{% url 'hr:job' applicant.appl_job.id %}">{{ applicant.appl_job.job_name}}</a></li>#}
+{#        <li>Candidate status: {{ applicant.appl_status  }}</li>#}
+{#        <li>Submitted: {{ applicant.appl_submitted }}</li>#}
+{#        <li>Notes: {{ applicant.appl_notes }}</li>#}
+    </ul>
+
+    <a class="btn btn-primary" href="{% url "admin:hr_jobapplicant_change" applicant.id %}">Edit</a>
+    </div>
+{% endblock %}

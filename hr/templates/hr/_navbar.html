@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="padding-top: 5px;">
+          <img alt="Brand" src="{% static 'hr/img/hr.png' %}">
+        </a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="{% if active == 'index'%}active{% endif %}">
+              <a href="{% url 'hr:index' %}">Home</a>
+          </li>
+          <li class="{% if active == 'jobs'%}active{% endif %}">
+              <a href="{% url 'hr:jobs' %}">Job Offers</a>
+          </li>
+          <li class="{% if active == 'applicants'%}active{% endif %}">
+              <a href="{% url 'hr:applicants' %}">Applicants</a>
+          </li>
+          <li class="{% if active == 'employees'%}active{% endif %}">
+              <a href="{% url 'hr:employees' %}">Employees</a>
+          </li>
+{#          <li class="{% if active == 'statistics'%}active{% endif %}">#}
+{#              <a href="#">Statistics</a>#}
+{#          </li>#}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Add... <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+{#              <li><a href="{{ client_add_url }}">Client</a></li>#}
+{#                <li><a href="{{ product_add_url }}">Product</a></li>#}
+              <li><a href="{% url 'admin:hr_joboffer_add' %}">Job Offer</a></li>
+              <li><a href="{% url 'admin:hr_jobapplicant_add' %}">Applicant</a></li>
+              <li><a href="{% url 'admin:hr_employee_add' %}">Employee</a></li>
+
+{#              <li class="divider"></li>#}
+{#              <li class="dropdown-header">Nav header</li>#}
+{#              <li><a href="#">Separated link</a></li>#}
+{#              <li><a href="#">One more separated link</a></li>#}
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome, <strong>{{ user.username }}</strong> <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{% url 'sales:logout' %}">Logout</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Modules</li>
+                <li><a href="{% url 'sales:index' %}">Sales</a></li>
+                <li><a href="{% url 'finance:index' %}">Finance</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            </ul>
+            </li>
+
+{#          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>#}
+{#          <li><a href="../navbar-static-top/">Static top</a></li>#}
+{#          <li><a href="../navbar-fixed-top/">Fixed top</a></li>#}
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+
+</nav>
+<div class="page-header">
+    <h4>HR department</h4>
+</div>

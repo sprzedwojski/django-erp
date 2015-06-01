@@ -1,0 +1,24 @@
+{% extends 'sales/base.html' %}
+
+{% block navbar %}
+    {% include "sales/_navbar.html" with active="products" %}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'sales:index' %}">Home</a></li>
+      <li><a href="{% url 'sales:products' %}">Products</a></li>
+      <li class="active">{{ product.product_name }}</li>
+    </ol>
+
+    <div class="well">
+    <h2>{{ product.product_name }}</h2>
+    <ul>
+        <li>Client: {{ product.client.client_name }}</li>
+        <li>Price: {{ product.price }}</li>
+        <li>Date delivered: {{ product.delivery_date }}</li>
+    </ul>
+
+    <a class="btn btn-primary" href="{% url "admin:sales_product_change" product.id %}">Edit</a>
+    </div>
+{% endblock %}

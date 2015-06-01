@@ -1,0 +1,10 @@
+<li>E-mail: <a href="mailto:{{ applicant.appl_email }}">{{ applicant.appl_email }}</a></li>
+<li>Phone: {{ applicant.appl_phone }}</li>
+<li>Birthday: {{ applicant.appl_birthdate }}</li>
+<li>Address: {{ applicant.appl_address }}</li>
+{% if not is_employee %}
+<li>Applied for: <a href="{% url 'hr:job' applicant.appl_job.id %}">{{ applicant.appl_job.job_name}}</a></li>
+<li>Candidate status: {{ applicant.appl_status  }}</li>
+{% endif %}
+<li>Submitted: {{ applicant.appl_submitted }}</li>
+<li>Notes: {{ applicant.appl_notes }}</li>

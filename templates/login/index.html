@@ -1,0 +1,38 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}">
+    <title>d_ERP Login</title>
+</head>
+<body>
+<div class="col-sm-offset-3 col-sm-6">
+    <div class="well">
+        <div class="clearfix"></div>
+
+        <form action="/login/" method="post" novalidate>
+            {% csrf_token %}
+            {% if error_text %}
+                <div class="alert alert-danger">{{ error_text | safe}}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+                <span class="text-danger">{{ form.username.errors }}</span>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                {{ form.password }}
+                <span class="text-danger">{{ form.password.errors }}</span>
+            </div>
+            <button class="btn btn-primary pull-right" type="submit">Login</button>
+        </form>
+        <div class="clearfix"></div>
+    </div>
+</div>
+    <script src="{% static 'common/js/jquery-2.1.3.js' %}"></script>
+    <script src="{% static 'common/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

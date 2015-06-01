@@ -1,0 +1,110 @@
+{% extends 'finance/base.html' %}
+
+{% block title %}Finance:Results{% endblock %}
+
+{% block navbar %}
+    {% include "finance/_navbar.html" with active="results" %}
+{% endblock %}
+
+{% block content %}
+
+    {% if products_list %}
+
+        <div id="chart_div">
+        </div>
+
+        {#        {% regroup products_list by delivery_date|date:"Y M" as products_by_month %}#}
+        {##}
+        {#          <!-- Default panel contents -->#}
+        {#        {% for product in products_by_month %}#}
+        {#            <div class="panel panel-default">#}
+        {#            <div class="panel-heading">{{ product.grouper }}</div>#}
+        {#            <div class="panel-body">#}
+        {#                    {% for item in product.list %}#}
+        {#                      {{ item.product_name }}: {{ item.price }}#}
+        {#                    {% endfor %}#}
+        {#            </div>#}
+        {#            </div>#}
+        {#            </div>#}
+        {#        {% endfor %}#}
+
+
+
+    {% endif %}
+
+
+{% endblock %}
+
+{% block additional_js %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+        google.load("visualization", "1", {packages: ['bar']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            {% if products_list %}
+                var data = google.visualization.arrayToDataTable([
+                    ['Month', 'Sales', 'Expenses'],
+
+                    {% regroup products_list by delivery_date|date:"Y M" as products_by_month %}
+                    {% regroup salaries_list by shi_month|date:"Y M" as salaries_by_month %}
+
+                    {% for product in products_by_month %}
+
+                        ['{{ product.grouper }}',
+                            {% for item in product.list %}
+                                {{ item.price }}
+                                {% if not forloop.last %}
+                                    +
+                                {% endif %}
+                            {% endfor %},
+
+                            0
+                            {% for salary in salaries_by_month %}
+                                {% if salary.grouper == product.grouper %}
+                                    {% for employee in salary.list %}
+                                        + {{ employee.shi_salary }}
+                                    {% endfor %}
+                                {% endif %} 
+                            {% endfor %}
+                        ],
+
+                    {% endfor %}
+
+{#                    {% for salary in salaries_by_month %}#}
+{#                        {% with found=False %}#}
+{#                        {% for product in products_by_month %}#}
+{#                            {% if salary.grouper != product.grouper and found == False%}#}
+{#                                ['{{ salary.grouper }}', 0,#}
+{#                                    {% for employee in salary.list %}#}
+{#                                        + {{ employee.shi_salary }}#}
+{#                                    {% endfor %}#}
+{#                                ],#}
+{#                                {% with found=True %}#}
+{#                                {% endwith %}#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+{#                        {% endwith %}#}
+{#                    {% endfor %}#}
+
+                ]);
+
+                var options = {
+                    chart: {
+                        title: 'Company Performance',
+                        subtitle: 'Sales and expenses',
+                    },
+                    height: 500,
+                    bar: {groupWidth: "95%"},
+{#                    legend: {position: "none"},#}
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+
+            {% endif %}
+        }
+    </script>
+{#    {{ salaries_by_month }}#}
+{% endblock %}
