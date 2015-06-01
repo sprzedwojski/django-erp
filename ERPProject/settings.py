@@ -61,17 +61,6 @@ WSGI_APPLICATION = 'ERPProject.wsgi.application'
 # Database
 # https://docs.djangopro    ject.com/en/1.7/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'erp',
-#         'USER': 'django',
-#         'PASSWORD': 'django',
-#         'HOST': '52.16.17.6',
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
